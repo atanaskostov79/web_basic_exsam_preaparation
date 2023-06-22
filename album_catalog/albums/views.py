@@ -60,5 +60,8 @@ def edit_album(request, pk):
     return render(request, 'edit-album.html', context)
 
 def delete_album(request, pk):
+    #TODO: Implement me...
     form = AlbumDeleteForm(request.POST or None, instance=Album.objects.get(pk=pk))
-    return render(request, 'delete-album.html')
+
+    context = { 'form': form }
+    return render(request, 'delete-album.html', context)
