@@ -1,5 +1,5 @@
 """
-WSGI config for albun_catalog project.
+WSGI config for album_catalog project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'albun_catalog.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'album_catalog.settings')
 
 application = get_wsgi_application()
