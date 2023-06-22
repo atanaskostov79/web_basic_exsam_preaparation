@@ -15,19 +15,20 @@
 
         <!-- Registration -->
         <section id="registerPage">
-            <form>
+            <form method="POST" action="{% url 'home' %}">
                 <fieldset>
                     <legend>Profile</legend>
-                    <form method="post" action="{% url 'home' %}">
+
                         {% csrf_token %}
                         {{ form.as_p }}
                         <!-- Button to Create Profile -->
                         <button type="submit" class="register">Enter</button>
 
-                    </form>
+
 
 
                 </fieldset>
+
             </form>
         </section>
     </div>

@@ -26,3 +26,18 @@ class ProfileForm(forms.ModelForm):
             'age': forms.NumberInput(attrs={'placeholder': 'Age'}),
         }
         labels = { 'email': 'Email'}
+
+class AlbumDeleteForm(AlbumForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__set_disabled_fields()
+
+    def save(self, commit=True):
+        if commit:
+            self.instance.delete()
+
+        return self.instance
+
+    def __set_disabled_fields(self):
+        for _, field in self.fields.items():
+            field.widget.attrs['readonly'] = 'readonly'
