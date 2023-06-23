@@ -14,7 +14,8 @@ class AlbumForm(forms.ModelForm):
             'image_url': forms.URLInput(attrs={'placeholder': 'Image URL'}),
             'price': forms.NumberInput(attrs={'placeholder': 'Price'}),
         }
-        labels = { 'image_url': 'Image URL'}
+        labels = {'image_url': 'Image URL'}
+
 
 class ProfileForm(forms.ModelForm):
     class Meta:
@@ -25,7 +26,27 @@ class ProfileForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'placeholder': 'Email'}),
             'age': forms.NumberInput(attrs={'placeholder': 'Age'}),
         }
-        labels = { 'email': 'Email'}
+        labels = {'email': 'Email'}
+
+
+class ProfileDeleteForm(ProfileForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__set_hidden_fields()
+
+    def save(self, commit=True):
+        if commit:
+            Album.objects \
+                .all() \
+                .delete()
+            self.instance.delete()
+
+        return self.instance
+
+    def __set_hidden_fields(self):
+        for _, field in self.fields.items():
+            field.widget = forms.HiddenInput()
+
 
 class AlbumDeleteForm(AlbumForm):
     def __init__(self, *args, **kwargs):
@@ -40,6 +61,4 @@ class AlbumDeleteForm(AlbumForm):
 
     def __set_disabled_fields(self):
         for _, field in self.fields.items():
-            # print()
-            # field.widget.attrs['readonly'] = 'readonly'
-            field.widget.attrs['disabled'] = 'disabled'
+            field.widget.attrs['readonly'] = 'readonly'
